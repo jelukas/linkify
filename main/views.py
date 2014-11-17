@@ -39,6 +39,8 @@ def ver_web(request, url):
 	for meta in meta_lst:
 		if 'property' in meta.attrib and  "og" in meta.attrib['property']:
 			meta.getparent().remove(meta)
+		if 'name' in meta.attrib and  "twitter" in meta.attrib['name']:
+			meta.getparent().remove(meta)
 
 	if url_object.meta_url.title:
 		title.text = url_object.meta_url.title
@@ -48,7 +50,7 @@ def ver_web(request, url):
 		head.append(meta_og_image)
 
 	if url_object.meta_url.image:
-		meta_og_image = et.Element('meta', property='og:image', content=url_object.meta_url.image)
+		meta_og_image = et.Element('meta', property='og:image', itemprop='image', content=url_object.meta_url.image)
 		head.append(meta_og_image)
 
 	if url_object.meta_url.description:
